@@ -23,3 +23,28 @@ map('n', '<C-l>', '<C-w>l', opts)
 -- map('n', '<leader>fg', ':Telescope live_grep<CR>', opts)    -- find string in files
 -- map('n', '<leader>fb', ':Telescope buffers<CR>', opts)      -- find buffers
 -- map('n', '<leader>fh', ':Telescope help_tags<CR>', opts)    -- find help tags
+
+
+-- my script
+function insert_comment()
+    local filename = vim.fn.expand('%:t') -- 获取当前文件名
+    local ext = vim.fn.expand('%:e') -- 从文件名获取扩展名
+    if ext == "cpp" or ext == "c" then
+        vim.fn.append(0, "/* ===============================================")
+        vim.fn.append(1, " * File: " .. filename) -- 插入文件名
+        vim.fn.append(2, " * Author: Eureka422@outlook.com")
+        vim.fn.append(3, " * Created Time: " .. os.date("%Y-%m-%d %H:%M:%S"))
+        vim.fn.append(4, " * Description: ")
+        vim.fn.append(5, " * =============================================*/")
+    elseif ext == "sh" then
+        vim.fn.append(0, "#!/bin/bash")
+        vim.fn.append(1, "# ===============================================")
+        vim.fn.append(2, "# File: " .. filename) -- 插入文件名
+        vim.fn.append(3, "# Author: Eureka422@outlook.com")
+        vim.fn.append(4, "# Created Time: " .. os.date("%Y-%m-%d %H:%M:%S"))
+        vim.fn.append(5, "# Description: ")
+        vim.fn.append(6, "# ===============================================")
+    end
+end
+
+map('n', '<leader>c', ':lua insert_comment()<CR>', opts)
